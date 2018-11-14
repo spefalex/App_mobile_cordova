@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-title>
+      S'identifier
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col>
+      <ion-list inset>
+        <ion-item>
+          <ion-input placeholder="Identification" type="text" [(ngModel)]="username" (ngModelChange)="hideStateMessage()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Mot de passe" type="password" required [(ngModel)]="password" (ngModelChange)="hideStateMessage()"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <div *ngIf="message" class="alert alert-danger">{{message}}</div>
+      <button ion-button class="submit-btn" full (click)="login()">
+        Login
+      </button>
+    
+    </ion-col>
+
+    <ion-item  style="width: 100%; text-align: center;" (click)="inscription()" >S'inscrire</ion-item>
+
+    <ion-item  style="width: 100%; text-align: center;" (click)="acceuil()" >Link Acceuil</ion-item>
+    <ion-item  style="width: 100%; text-align: center;" > Mot de passe oublié</ion-item>
+    
+  </ion-row>
