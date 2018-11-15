@@ -47,7 +47,7 @@ export class HomePage {
         this.message = userState.message;
         this.stateError = userState.error;
         this.stateLoading = userState.loading;
-        this.showLoading();
+        this.showConnexionFailed();
         this;
         if (userState.token) {
           this.token = userState.token;
@@ -59,10 +59,7 @@ export class HomePage {
     this.message = "";
   }
 
-  showLoading() {
-    if (this.stateLoading == true && this.stateError == false) {
-      this.loading.dismiss();
-    }
+  showConnexionFailed() {
     if (this.stateError == true) {
       this.presentToast();
       this.message = "";
@@ -75,17 +72,21 @@ export class HomePage {
   acceuil() {
     this.navCtrl.setRoot(AcceuilPage);
   }
-
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      content: 'En cours de connexion...'
+    });
+  
+    loading.present();
+    if (this.stateError == true || this.stateLoading == false || this.token) {
+      loading.dismiss();
+    }
+  }
   login() {
     if (this.username == undefined || this.password == undefined) {
       this.message = "Les deux champs sont obligatoires";
     } else {
-      this.loading = this.loadingCtrl.create({
-        content: "En cours de connexion...",
-        dismissOnPageChange: true
-      });
-      this.loading.present();
-
+      this.presentLoading();
       this.store.dispatch(new UserAction(this.username, this.password));
     }
   }
